@@ -18,8 +18,12 @@ for i in rows:
             file_page = requests.get(f"https://anonfiles.com/{file_link_id}/").text
             download_link = re.findall(dl_name_pat, file_page)
             ready_download_link = download_link[0][0] + download_link[0][1] + download_link[0][2]
-            print(ready_download_link)
+            # print(ready_download_link)
             file_name = f"[{file_link_id}]_{download_link[0][3]}"
-            print("File name: ", file_name)
+            # print("File name: ", file_name)
             # download_to = 
-            print(if_exist['data']['file']['metadata']['id'], if_exist['data']['file']['metadata']['size']['bytes'], f"\"{if_exist['data']['file']['metadata']['name']}\"", sep=',')
+            # print(if_exist['data']['file']['metadata']['id'], if_exist['data']['file']['metadata']['size']['bytes'], f"\"{if_exist['data']['file']['metadata']['name']}\"", sep=',')
+            file = requests.get(ready_download_link)
+            with open(f"downloads/{file_name}", 'wb') as download_to:
+                download_to.write(file.content)
+                print(f"File {file_name} downloaded")
